@@ -85,6 +85,9 @@ sh populate_mysql_rxn.sh
 
 Note, this command will create a log file `mysql.log` that details whether each step has successfully run or failed with additional detail on any errors that have occurred 
 
+Below are the tables that were generated with these scripts
+
+![tables](images/tables.png)
 
 If you run into a permission error, run the below code. The chmod 775 command will grant the read, write, and execute permissions
 ``` bash
@@ -115,8 +118,6 @@ If it says 'No' then run the below command to enable `local_infile`
 mysql> set global local_infile=true;
 ```
 
-
-
 ## Additional instructions provided by NIH NLM below:
 * [UMLS Homepage](https://www.nlm.nih.gov/research/umls/index.html)
 
@@ -129,6 +130,8 @@ mysql> set global local_infile=true;
 
 
 ## Mapping NDC, RXCUI, and Drug Names in the RxNorm Files
+
+Now that the database has been successfully created and populated with data, queries can be run to retrieve data.
 
 Here is a SQL query example to obtain a map of NDC-RXCUI-Drug Name information joined on RXAUIs in
 a relational database.
