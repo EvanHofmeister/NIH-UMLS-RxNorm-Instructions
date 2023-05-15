@@ -1,6 +1,12 @@
-## Instructions for setting up database from NIH UMLS RxNorm Files
+## Instructions to Set-Up NIH UMLS RxNorm Database
 
-First sign-up for a 'UMLS Terminology Services Account' so you can download files:
+The Unified Medical Language System (UMLS) integrates and distributes key terminology, classification and coding standards, and associated resources to promote creation of more effective and interoperable biomedical information systems and services, including electronic health records.
+
+The UMLS, or Unified Medical Language System, is a [set of files and software](https://www.nlm.nih.gov/research/umls/sourcereleasedocs/index.html) that brings together many health and biomedical vocabularies and standards to enable interoperability between computer systems.
+
+---
+### Instructions 
+To set up a local database, first begin by signing-up for a 'UMLS Terminology Services Account' so you can download files:
 * [UMLS Sign-Up](https://uts.nlm.nih.gov/uts/signup-login)
 
 Next download the latest RxNorm files:
@@ -125,3 +131,5 @@ AND rc.sab = 'RXNORM'
 AND rc.tty in ('SCD','SBD','GPCK','BPCK')
 ORDER BY rc.str;
 ```
+
+![data](images/data.png)
