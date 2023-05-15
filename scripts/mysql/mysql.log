@@ -1,0 +1,15 @@
+----------------------------------------
+Starting ... Sat May 13 00:04:59 CDT 2023
+----------------------------------------
+MYSQL_HOME= /usr
+user =       
+db_name =    
+    Create and load tables ... Sat May 13 00:04:59 CDT 2023
+populate_mysql_rxn.sh: line 38: /usr/bin/mysql: No such file or directory
+----------------------------------------
+There were one or more errors.  Please reference the mysql.log file for details.
+Finished ... Sat May 13 00:04:59 CDT 2023
+----------------------------------------
+zsh: no such file or directory: :mysql://127.0.0.1:3306
+zsh: no such file or directory: jdbc:mysql://127.0.0.1:3306
+zsh: no such file or directory: jdbc:mysql://127.0.0.1:3306
