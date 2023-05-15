@@ -2,7 +2,7 @@
 
 The Unified Medical Language System (UMLS) integrates and distributes key terminology, classification and coding standards, and associated resources to promote creation of more effective and interoperable biomedical information systems and services, including electronic health records.
 
-The UMLS, or Unified Medical Language System, is a [set of files and software](https://www.nlm.nih.gov/research/umls/sourcereleasedocs/index.html) that brings together many health and biomedical vocabularies and standards to enable interoperability between computer systems.
+The UMLS is a [set of files and software](https://www.nlm.nih.gov/research/umls/sourcereleasedocs/index.html) that brings together many health and biomedical vocabularies and standards to enable interoperability between computer systems.
 
 ---
 ### Instructions 
