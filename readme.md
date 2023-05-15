@@ -85,7 +85,7 @@ sh populate_mysql_rxn.sh
 
 Note, this command will create a log file `mysql.log` that details whether each step has successfully run or failed with additional detail on any errors that have occurred 
 
-Below are the tables that were generated with these scripts
+Below are the tables that were generated with these scripts:
 
 ![tables](images/tables.png)
 
