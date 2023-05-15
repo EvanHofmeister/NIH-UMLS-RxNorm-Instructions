@@ -2,17 +2,22 @@
 
 The Unified Medical Language System (UMLS) integrates and distributes key terminology, classification and coding standards, and associated resources to promote creation of more effective and interoperable biomedical information systems and services, including electronic health records.
 
-The UMLS is a [set of files and software](https://www.nlm.nih.gov/research/umls/sourcereleasedocs/index.html) that brings together many health and biomedical vocabularies and standards to enable interoperability between computer systems.
+UMLS is a [set of files and software](https://www.nlm.nih.gov/research/umls/sourcereleasedocs/index.html) that brings together many health and biomedical vocabularies and standards to enable interoperability between computer systems.
 
 ---
-### Instructions 
+### Instructions to set up database 
 To set up a local database, first begin by signing-up for a 'UMLS Terminology Services Account' so you can download files:
 * [UMLS Sign-Up](https://uts.nlm.nih.gov/uts/signup-login)
 
 Next download the latest RxNorm files:
 * [RxNorm Files](https://www.nlm.nih.gov/research/umls/rxnorm/docs/rxnormfiles.html)
 
-Assuming you are using open-source MySQL, navigate to:
+
+![latest_release](images/latest_release.png)
+
+For this tutorial I used the [latest available monthly release](https://download.nlm.nih.gov/umls/kss/rxnorm/RxNorm_full_05012023.zip)
+
+Assuming you are using open-source MySQL and running on a Unix based system like MacOS, navigate to:
 
 `~/RxNorm_full_mmddyyyy/scripts/mysql`
 
@@ -70,13 +75,16 @@ db_name=<MYSQL DATABASE NAME>
 dbserver=<MYSQL DATABASE SERVER>
 ```
 
-In my case, since I have installed MySql with brew and have a do not have a password on the database:
+In my case, since I have installed MySql with brew, have a username of `root`, and a do not have a password on the database:
 ![populate_mysql_parameters](images/populate_mysql_parameters.png)
 
 Next, execute the bash file and enter a password if prompted
 ``` bash
 sh populate_mysql_rxn.sh
 ```
+
+Note, this command will create a log file `mysql.log` that details whether each step has successfully run or failed with additional detail on any errors that have occurred 
+
 
 If you run into a permission error, run the below code. The chmod 775 command will grant the read, write, and execute permissions
 ``` bash
@@ -92,7 +100,7 @@ You should check whether the local_infile is disabled or enable.
 
 To do this first log into the MySql client
 ``` bash
-MySQL -h <IP ADDRESS> -u root
+MySQL -h <IP ADDRESS MySql is running on> -u root
 ```
 
 Then run the below command to see the info on the `local_infile` variable
@@ -109,7 +117,7 @@ mysql> set global local_infile=true;
 
 
 
-Additional instructions provided by NIH NLM below:
+## Additional instructions provided by NIH NLM below:
 * [UMLS Homepage](https://www.nlm.nih.gov/research/umls/index.html)
 
 * [Video tutorial for Querying RxNorm Tables](https://www.nlm.nih.gov/research/umls/user_education/quick_tours/RxNorm/ndc_rxcui/NDC_RXCUI_DrugName.html)
@@ -122,6 +130,9 @@ Additional instructions provided by NIH NLM below:
 
 ## Mapping NDC, RXCUI, and Drug Names in the RxNorm Files
 
+Here is a SQL query example to obtain a map of NDC-RXCUI-Drug Name information joined on RXAUIs in
+a relational database.
+
 ``` sql
 SELECT rs.atv as ndc, rs.rxcui, rc.str
 FROM rxnsat rs, rxnconso rc
@@ -131,5 +142,8 @@ AND rc.sab = 'RXNORM'
 AND rc.tty in ('SCD','SBD','GPCK','BPCK')
 ORDER BY rc.str;
 ```
+
+Here are the results. The first column has NDCs, the second has the RXCUIs, and finally the drug names
+are in the String column.
 
 ![data](images/data.png)
