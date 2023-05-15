@@ -1,8 +1,5 @@
 ## Instructions for setting up database from NIH UMLS RxNorm Files
 
-![Pipeline](images/Pipeline.png)
-
-
 First sign-up for a 'UMLS Terminology Services Account' so you can download files:
 * [UMLS Sign-Up](https://uts.nlm.nih.gov/uts/signup-login)
 
@@ -30,6 +27,8 @@ Check which ip address and port mysql is running on:
 lsof -n -P -i TCP -s TCP:LISTEN | grep mysql
 ```
 
+![find_ip_port](images/find_ip_port.png)
+
 Next, login to the MySql command line client:
 ``` bash
 MySQL -h <IP ADDRESS> -u root
@@ -45,6 +44,7 @@ You should now see the database you created:
 mysql> show databases;
 ```
 
+![MySql_DB](images/MySql_DB.png)
 
 ---
 ### RUN POPULATE SCRIPT 
@@ -55,7 +55,19 @@ Change the current working directory to the location of the scripts:
 cd ~/RxNorm_full_mmddyyyy/scripts/mysql
 ```
 
-Execute the bash file and enter a password if prompted
+Next fill in the below parameters in the `populate_mysql_rxn.sh` file 
+``` bash
+MYSQL_HOME=<MYSQL DIRECTORY>
+user=<MYSQL DATABASE USERNAME>
+password=<MYSQL DATABASE PASSWORD>
+db_name=<MYSQL DATABASE NAME>
+dbserver=<MYSQL DATABASE SERVER>
+```
+
+In my case, since I have installed MySql with brew and have a do not have a password on the database:
+![populate_mysql_parameters](images/populate_mysql_parameters.png)
+
+Next, execute the bash file and enter a password if prompted
 ``` bash
 sh populate_mysql_rxn.sh
 ```
@@ -65,7 +77,7 @@ If you run into a permission error, run the below code. The chmod 775 command wi
 chmod 775 populate_mysql_rxn.sh
 ```
 
-If you recieve the below error in the `mysql.log`:
+If you receive the below error in the `mysql.log`:
 
 `error:"ERROR 3948 (42000) at line 1: Loading local data is disabled; this must be enabled on both the client and server sides"`
 
@@ -81,6 +93,8 @@ Then run the below command to see the info on the `local_infile` variable
 ``` bash
 mysql> show global variables like 'local_infile';
 ```
+
+![local_infile_error](images/local_infile_error.png)
 
 If it says 'No' then run the below command to enable `local_infile`
 ``` bash
