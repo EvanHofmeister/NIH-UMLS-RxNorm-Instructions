@@ -35,6 +35,7 @@ To avoid having to set a path to the data, simply copy these four files to the d
 `
 ~/RxNorm_full_05012023/rrf
 `
+
 ---
 ### CREATE DATABASE
 first we need to create a MySql database to store the data. To do this, open terminal and run the below bash commands 
