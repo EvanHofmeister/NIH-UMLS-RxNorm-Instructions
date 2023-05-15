@@ -29,6 +29,12 @@ You should see the below files:
 | 2 | Table_scripts_mysql_rxn.sql     | Creates and loads tables                                          |
 | 3 | Load_scripts_mysql_rxn_unix.sql | Loads data from .rrf files                                        |
 | 4 | Indexes_mysql_rxn.sql           | Adds indexes to database tables                                   |
+
+To avoid having to set a path to the data, simply copy these four files to the directory that contains the `.rrf` data files:
+
+`
+~/RxNorm_full_05012023/rrf
+`
 ---
 ### CREATE DATABASE
 first we need to create a MySql database to store the data. To do this, open terminal and run the below bash commands 
@@ -50,7 +56,7 @@ Create a new database for the RxNorm files:
 mysql -u root CREATE DATABASE <YOUR DATABASE NAME>
 ```
 
-You should now see the database you created:
+You should now see the database you created, in my case it's labeled `umls_db`:
 ``` bash
 mysql> show databases;
 ```
@@ -63,10 +69,10 @@ Next we'll run the `.sql` files which create schemas and tables and then load da
 
 Change the current working directory to the location of the scripts:
 ``` bash
-cd ~/RxNorm_full_mmddyyyy/scripts/mysql
+cd ~/RxNorm_full_05012023/rrf
 ```
 
-Next fill in the below parameters in the `populate_mysql_rxn.sh` file 
+Next fill in the below parameters in the `populate_mysql_rxn.sh` file:
 ``` bash
 MYSQL_HOME=<MYSQL DIRECTORY>
 user=<MYSQL DATABASE USERNAME>
@@ -78,18 +84,18 @@ dbserver=<MYSQL DATABASE SERVER>
 In my case, since I have installed MySql with brew, have a username of `root`, and a do not have a password on the database:
 ![populate_mysql_parameters](images/populate_mysql_parameters.png)
 
-Next, execute the bash file and enter a password if prompted
+Next, execute the bash file and enter a password if prompted:
 ``` bash
 sh populate_mysql_rxn.sh
 ```
 
-Note, this command will create a log file `mysql.log` that details whether each step has successfully run or failed with additional detail on any errors that have occurred 
+Note, this command will create a log file `mysql.log` that details whether each step has successfully run or failed with additional detail on any errors that have occurred:
 
 Below are the tables that were generated with these scripts:
 
 ![tables](images/tables.png)
 
-If you run into a permission error, run the below code. The chmod 775 command will grant the read, write, and execute permissions
+If you run into a permission error, run the below code. The chmod 775 command will grant the read, write, and execute permissions:
 ``` bash
 chmod 775 populate_mysql_rxn.sh
 ```
@@ -101,19 +107,19 @@ If you receive the below error in the `mysql.log`:
 
 You should check whether the local_infile is disabled or enable. 
 
-To do this first log into the MySql client
+To do this first log into the MySql client:
 ``` bash
 MySQL -h <IP ADDRESS MySql is running on> -u root
 ```
 
-Then run the below command to see the info on the `local_infile` variable
+Then run the below command to see the info on the `local_infile` variable:
 ``` bash
 mysql> show global variables like 'local_infile';
 ```
 
 ![local_infile_error](images/local_infile_error.png)
 
-If it says 'No' then run the below command to enable `local_infile`
+If it says 'No' then run the below command to enable `local_infile`:
 ``` bash
 mysql> set global local_infile=true;
 ```
