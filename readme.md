@@ -83,6 +83,7 @@ dbserver=<MYSQL DATABASE SERVER>
 ```
 
 In my case, since I have installed MySql with brew, have a username of `root`, and a do not have a password on the database:
+
 ![populate_mysql_parameters](images/populate_mysql_parameters.png)
 
 Next, execute the bash file and enter a password if prompted:
